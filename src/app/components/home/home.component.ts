@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { UsersInAppComponent } from '../users-in-app/users-in-app.component.js';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [UsersInAppComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
