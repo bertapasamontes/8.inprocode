@@ -2,11 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-edit-data',
-  standalone: true,
-  imports: [],
-  templateUrl: './edit-data.component.html',
-  styleUrl: './edit-data.component.scss'
+    selector: 'app-edit-data',
+    imports: [],
+    templateUrl: './edit-data.component.html',
+    styleUrl: './edit-data.component.scss'
 })
 export class EditDataComponent {
 

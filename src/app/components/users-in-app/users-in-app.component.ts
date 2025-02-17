@@ -15,11 +15,10 @@ import { EditDataComponent } from '../edit-data/edit-data.component.js';
 import { UserService } from '../../services/user/user.service.js';
 
 @Component({
-  selector: 'app-users-in-app',
-  standalone: true,
-  imports: [MatIconModule, RouterLink, MatButtonModule ],
-  templateUrl: './users-in-app.component.html',
-  styleUrl: './users-in-app.component.scss'
+    selector: 'app-users-in-app',
+    imports: [MatIconModule, RouterLink, MatButtonModule],
+    templateUrl: './users-in-app.component.html',
+    styleUrl: './users-in-app.component.scss'
 })
 export class UsersInAppComponent {
   usuariosEnMichi=[
