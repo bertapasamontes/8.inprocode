@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-data',
@@ -11,6 +11,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class EditDataComponent {
 
   constructor(
-    public _matDialogRef: MatDialogRef<EditDataComponent>
-  ){}
+    public _matDialogRef: MatDialogRef<EditDataComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:any //recibir data
+  ){
+    this.data.id
+    this.data.name; //recibiendo data en el HTML
+  }
 }

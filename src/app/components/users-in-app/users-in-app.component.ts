@@ -12,6 +12,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { EditDataComponent } from '../edit-data/edit-data.component.js';
+import { UserService } from '../../services/user/user.service.js';
 
 @Component({
   selector: 'app-users-in-app',
@@ -32,10 +33,28 @@ export class UsersInAppComponent {
   ]
 
   constructor(
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    private _userService: UserService
   ){}
 
   abrirEdit():void{
-    this._matDialog.open(EditDataComponent);
+    this._matDialog.open(EditDataComponent, {
+      width: '900px',
+      data: {
+        id: this.usuariosEnMichi[0].id,
+        name: this.usuariosEnMichi[0].name
+      }
+    });
+  }
+
+  ngOnInit(){
+    this.getListUsers();
+  }
+
+
+  getListUsers(){
+    this._userService.getListUsers().subscribe((data)=>{
+      console.log(data)
+    })
   }
 }
