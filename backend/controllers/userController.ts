@@ -20,19 +20,19 @@ export const getOneUser = async (req:Request, res: Response)=>{
     const {id} = req.params;
     const userSolitario = await UserNuevo.findById(id);
 
-    if(userSolitario){
-        res.json(userSolitario);
-    } else{
-        res.status(404).json({
-            mensaje: 'No existe un user con el id ${id}'
-        })
-    }
+    // if(userSolitario){
+    //     res.json(userSolitario);
+    // } else{
+    //     res.status(404).json({
+    //         mensaje: 'No existe un user con el id ${id}'
+    //     })
+    // }
 
-    // res.json({
-    //     mensaje: 'get a user',
-    //     id: req.params.id,
-    //     body
-    // })
+    res.json({
+        mensaje: 'get a user',
+        id: req.params.id,
+        body
+    })
 }
 
 export const deleteOneUser = (req:Request, res: Response)=>{
