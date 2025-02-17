@@ -29,7 +29,10 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "plugins": [
+     {"name": "@angular/language-service"}
+ ]
 }
 
 // {
