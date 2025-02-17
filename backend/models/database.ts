@@ -15,7 +15,7 @@ class Database{
         this.app = express();
         this.app.use(cors());
 
-        this.port = process.env.PORT || '3000';
+        this.port = process.env['PORT'] || '3000';
         this.listen();
 
         this.midlewares(); //siempre antes de los routes, si no, no funciona. Sin esto, hacer posts de users no funciona
@@ -37,6 +37,7 @@ class Database{
     midlewares(){
         //parseamos el body
         this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
     }
 
     dbConnect(){

@@ -12,7 +12,7 @@ class Database {
     constructor() {
         this.app = (0, express_1.default)();
         this.app.use((0, cors_1.default)());
-        this.port = process.env.PORT || '3000';
+        this.port = process.env['PORT'] || '3000';
         this.listen();
         this.midlewares(); //siempre antes de los routes, si no, no funciona. Sin esto, hacer posts de users no funciona
         this.routes();
@@ -29,6 +29,7 @@ class Database {
     midlewares() {
         //parseamos el body
         this.app.use(express_1.default.json());
+        this.app.use(express_1.default.urlencoded({ extended: true }));
     }
     dbConnect() {
         // console.log("🔍 URI de MongoDB:", process.env.MONGODB_URL);

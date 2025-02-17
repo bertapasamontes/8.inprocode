@@ -1,24 +1,34 @@
+import mongoose from 'mongoose';
 import UserNuevo from '../../src/app/model/users.js';
 
 import { Request, Response } from 'express';
 
 //para usar estas funciones, hay que añadirlas al module.export
 export const getUsers = async (req:Request, res:Response)=> {
-    const ListUsuarios = await UserNuevo.find()
+    UserNuevo.find()
     .then((respuesta: any)=>{
-        res.json(ListUsuarios)
+        res.json(respuesta)
     })
     .catch((error:any) =>{
         res.json({
             message: 'Ocurrió un error en la función GetUsers'
         })
     })
+
 }
 
 export const getOneUser = async (req:Request, res: Response)=>{
     const {body} = req;
     const {id} = req.params;
-    const userSolitario = await UserNuevo.findById(id);
+
+    //el codigo comentado solo va si se le pasa el objectkey. hay q arreglarlo.
+
+     // Validar si el ID es un ObjectId válido
+    // if (!mongoose.Types.ObjectId.isValid(id)) {
+    //     res.status(400).json({ mensaje: "ID no válido para MongoDB" });
+    // }
+
+    // const userSolitario = await UserNuevo.findById(id);
 
     // if(userSolitario){
     //     res.json(userSolitario);
@@ -30,7 +40,7 @@ export const getOneUser = async (req:Request, res: Response)=>{
 
     res.json({
         mensaje: 'get a user',
-        id: req.params.id,
+        id,
         body
     })
 }
@@ -38,7 +48,7 @@ export const getOneUser = async (req:Request, res: Response)=>{
 export const deleteOneUser = (req:Request, res: Response)=>{
     res.json({
         mensaje: 'delete a user',
-        id: req.params.id
+        id: req.params
     })
 }
 
@@ -174,5 +184,5 @@ const deleteUser = (req: { body: { userId: any; }; }, res: { json: (arg0: { mess
 
 
 module.exports = {
-    usersIndex, addUserToDB, updateUser, deleteUser, getOneUser, deleteOneUser, postUser
+    usersIndex, addUserToDB, updateUser, deleteUser, getOneUser, deleteOneUser, postUser, getUsers
 }

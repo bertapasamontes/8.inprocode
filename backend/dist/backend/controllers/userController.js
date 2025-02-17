@@ -16,9 +16,9 @@ exports.showUser = exports.usersIndex = exports.updateUser = exports.postUser = 
 const users_js_1 = __importDefault(require("../../src/app/model/users.js"));
 //para usar estas funciones, hay que añadirlas al module.export
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const ListUsuarios = yield users_js_1.default.find()
+    users_js_1.default.find()
         .then((respuesta) => {
-        res.json(ListUsuarios);
+        res.json(respuesta);
     })
         .catch((error) => {
         res.json({
@@ -30,26 +30,30 @@ exports.getUsers = getUsers;
 const getOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     const { id } = req.params;
-    const userSolitario = yield users_js_1.default.findById(id);
-    if (userSolitario) {
-        res.json(userSolitario);
-    }
-    else {
-        res.status(404).json({
-            mensaje: 'No existe un user con el id ${id}'
-        });
-    }
-    // res.json({
-    //     mensaje: 'get a user',
-    //     id: req.params.id,
-    //     body
-    // })
+    //el codigo comentado solo va si se le pasa el objectkey. hay q arreglarlo.
+    // Validar si el ID es un ObjectId válido
+    // if (!mongoose.Types.ObjectId.isValid(id)) {
+    //     res.status(400).json({ mensaje: "ID no válido para MongoDB" });
+    // }
+    // const userSolitario = await UserNuevo.findById(id);
+    // if(userSolitario){
+    //     res.json(userSolitario);
+    // } else{
+    //     res.status(404).json({
+    //         mensaje: 'No existe un user con el id ${id}'
+    //     })
+    // }
+    res.json({
+        mensaje: 'get a user',
+        id,
+        body
+    });
 });
 exports.getOneUser = getOneUser;
 const deleteOneUser = (req, res) => {
     res.json({
         mensaje: 'delete a user',
-        id: req.params.id
+        id: req.params
     });
 };
 exports.deleteOneUser = deleteOneUser;
@@ -176,5 +180,5 @@ const deleteUser = (req, res, next) => {
     });
 };
 module.exports = {
-    usersIndex: exports.usersIndex, addUserToDB, updateUser: exports.updateUser, deleteUser, getOneUser: exports.getOneUser, deleteOneUser: exports.deleteOneUser, postUser: exports.postUser
+    usersIndex: exports.usersIndex, addUserToDB, updateUser: exports.updateUser, deleteUser, getOneUser: exports.getOneUser, deleteOneUser: exports.deleteOneUser, postUser: exports.postUser, getUsers: exports.getUsers
 };
