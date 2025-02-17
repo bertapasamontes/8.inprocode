@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UsersInAppComponent } from '../users-in-app/users-in-app.component.js';
+import { UsersInAppComponent } from '../users-in-app/users-in-app.component';
 
 @Component({
   selector: 'app-home',
