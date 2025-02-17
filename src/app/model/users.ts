@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
 const userSchema = new Schema({
+  id: {type: Number, unique:true},
   name: { type: String, required: true },
   surname: { type: String, required: true },
   username: { type: String, required: true, unique: true },
@@ -11,5 +12,5 @@ const userSchema = new Schema({
   updatedAt: Date,
     
 });
-export const UserNuevo = mongoose.model('User', userSchema);
+export const UserNuevo = mongoose.model('UsersDeMichi', userSchema); //este User es el que le da nombre a la subcarpeta de mongoDB
 export default UserNuevo;

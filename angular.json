@@ -54,7 +54,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": false
             },
             "development": {
               "optimization": false,
@@ -69,7 +70,7 @@
           "configurations": {
             "production": {
               "buildTarget": "8.inprocode:build:production"
-            },
+            }, 
             "development": {
               "buildTarget": "8.inprocode:build:development"
             }

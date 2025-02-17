@@ -16,11 +16,11 @@ export class UserService {
     this.myApiUrl ='users';
   }
 
-  // Método para obtener la lista de usuarios desde el backend
   // getUsers(): Observable<any> {
   //   return this.http.get<any>(this.apiUrl);
   // }
 
+  // Método para obtener la lista de usuarios desde el backend
   getListUsers(): Observable<User[]>{
     return this.http.get<User[]>('${this.myAppUrl}${this.myApiUrl}');
   }
