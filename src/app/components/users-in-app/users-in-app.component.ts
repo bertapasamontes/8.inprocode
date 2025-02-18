@@ -16,6 +16,7 @@ import { UserService } from '../../services/user/user.service.js';
 
 import { User } from '../../interfaces/users.js';
 import { ProgressBarComponent } from "../shared/progress-bar/progress-bar.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-users-in-app',
@@ -29,7 +30,8 @@ export class UsersInAppComponent {
 
   constructor(
     private _matDialog: MatDialog,
-    private _userService: UserService
+    private _userService: UserService,
+    private toastr: ToastrService
   ){}
 
   abrirEdit():void{
@@ -61,5 +63,6 @@ export class UsersInAppComponent {
     this._userService.deleteUser(id).subscribe(() =>{
       this.getListUsers(); // para volver a cargar la lista y que no se queden los antiguos
     })
+    this.toastr.success('Usuario eliminado exitosamente', 'User eliminado')
   }
 }
