@@ -4,6 +4,6 @@
 }
 
 ::ng-deep .mat-mdc-raised-button:not(:disabled){
-    background-color: orange;
+    background-color: orange !important;
     // border-radius: 20px;
 }
