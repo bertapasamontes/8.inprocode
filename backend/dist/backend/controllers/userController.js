@@ -29,13 +29,13 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getUsers = getUsers;
 const getOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
-    const { id } = req.params;
+    // const {id} = req.params;
     //el codigo comentado solo va si se le pasa el objectkey. hay q arreglarlo.
     // Validar si el ID es un ObjectId válido
     // if (!mongoose.Types.ObjectId.isValid(id)) {
     //     res.status(400).json({ mensaje: "ID no válido para MongoDB" });
     // }
-    // const userSolitario = await UserNuevo.findById(id);
+    // const userSolitario = await UserNuevo.findById({_id:id});
     // if(userSolitario){
     //     res.json(userSolitario);
     // } else{
@@ -43,11 +43,16 @@ const getOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     //         mensaje: 'No existe un user con el id ${id}'
     //     })
     // }
-    res.json({
-        mensaje: 'get a user',
-        id,
-        body
-    });
+    const { id } = req.params;
+    users_js_1.default
+        .findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ mensaje: error }));
+    // res.json({
+    //     mensaje: 'get a user',
+    //     id,
+    //     body
+    // })
 });
 exports.getOneUser = getOneUser;
 const deleteOneUser = (req, res) => {
@@ -58,18 +63,18 @@ const deleteOneUser = (req, res) => {
 };
 exports.deleteOneUser = deleteOneUser;
 const postUser = (req, res) => {
-    const { body } = req;
-    res.json({
-        mensaje: 'post a user',
-        body
-    });
-    // const user = new UserNuevo(req.body);
-    // user
-    //     .save()
-    //     .then((data)=> res.json(data))
-    //     .catch((error)=> res.json({
-    //         mensaje: error
-    //     }))
+    // const {body} = req;
+    // res.json({
+    //     mensaje: 'post a user',
+    //     body
+    // })
+    const user = new users_js_1.default(req.body);
+    user
+        .save()
+        .then((data) => res.json(data))
+        .catch((error) => res.json({
+        mensaje: error
+    }));
 };
 exports.postUser = postUser;
 const updateUser = (req, res) => {
@@ -80,9 +85,17 @@ const updateUser = (req, res) => {
     //     id,
     //     body
     // })
-    const user = new users_js_1.default(req.body);
-    user
-        .save()
+    // const user = new UserNuevo(req.body);
+    // user
+    //     .save()
+    //     .then((data)=> res.json(data))
+    //     .catch((error)=> res.json({
+    //         mensaje: error
+    //     }))
+    const { id } = req.params;
+    const { name, username, surname, email } = req.body;
+    users_js_1.default
+        .updateOne({ _id: id }, { $set: { name, username, surname, email } }) // con $set mongoDB actualiza el objeto de ese ID con el los datos del objeto que se le pasa (email, surname..).
         .then((data) => res.json(data))
         .catch((error) => res.json({
         mensaje: error

@@ -19,7 +19,7 @@ export const getUsers = async (req:Request, res:Response)=> {
 
 export const getOneUser = async (req:Request, res: Response)=>{
     const {body} = req;
-    const {id} = req.params;
+    // const {id} = req.params;
 
     //el codigo comentado solo va si se le pasa el objectkey. hay q arreglarlo.
 
@@ -28,7 +28,7 @@ export const getOneUser = async (req:Request, res: Response)=>{
     //     res.status(400).json({ mensaje: "ID no válido para MongoDB" });
     // }
 
-    // const userSolitario = await UserNuevo.findById(id);
+    // const userSolitario = await UserNuevo.findById({_id:id});
 
     // if(userSolitario){
     //     res.json(userSolitario);
@@ -37,12 +37,17 @@ export const getOneUser = async (req:Request, res: Response)=>{
     //         mensaje: 'No existe un user con el id ${id}'
     //     })
     // }
+    const {id} = req.params;
+    UserNuevo
+        .findById(id)
+        .then((data)=> res.json(data))
+        .catch((error)=> res.json({mensaje: error}))
 
-    res.json({
-        mensaje: 'get a user',
-        id,
-        body
-    })
+    // res.json({
+    //     mensaje: 'get a user',
+    //     id,
+    //     body
+    // })
 }
 
 export const deleteOneUser = (req:Request, res: Response)=>{
@@ -53,18 +58,18 @@ export const deleteOneUser = (req:Request, res: Response)=>{
 }
 
 export const postUser = (req:Request, res: Response)=>{
-    const {body} = req;
-    res.json({
-        mensaje: 'post a user',
-        body
-    })
-    // const user = new UserNuevo(req.body);
-    // user
-    //     .save()
-    //     .then((data)=> res.json(data))
-    //     .catch((error)=> res.json({
-    //         mensaje: error
-    //     }))
+    // const {body} = req;
+    // res.json({
+    //     mensaje: 'post a user',
+    //     body
+    // })
+    const user = new UserNuevo(req.body);
+    user
+        .save()
+        .then((data)=> res.json(data))
+        .catch((error)=> res.json({
+            mensaje: error
+        }))
 }
 
 export const updateUser = (req:Request, res: Response)=>{
@@ -76,12 +81,21 @@ export const updateUser = (req:Request, res: Response)=>{
     //     body
     // })
 
-    const user = new UserNuevo(req.body);
-    user
-        .save()
+    // const user = new UserNuevo(req.body);
+    // user
+    //     .save()
+    //     .then((data)=> res.json(data))
+    //     .catch((error)=> res.json({
+    //         mensaje: error
+    //     }))
+
+    const {id} = req.params;
+    const {name, username, surname, email} = req.body;
+    UserNuevo
+        .updateOne({_id: id}, { $set: {name, username, surname, email}}) // con $set mongoDB actualiza el objeto de ese ID con el los datos del objeto que se le pasa (email, surname..).
         .then((data)=> res.json(data))
         .catch((error)=> res.json({
-            mensaje: error
+            mensaje: error  
         }))
 }
 
