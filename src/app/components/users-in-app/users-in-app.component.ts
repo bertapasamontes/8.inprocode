@@ -14,22 +14,18 @@ import {
 import { EditDataComponent } from '../edit-data/edit-data.component.js';
 import { UserService } from '../../services/user/user.service.js';
 
+import { User } from '../../interfaces/users.js';
+import { ProgressBarComponent } from "../shared/progress-bar/progress-bar.component";
+
 @Component({
     selector: 'app-users-in-app',
-    imports: [MatIconModule, RouterLink, MatButtonModule],
+    imports: [MatIconModule, RouterLink, MatButtonModule, ProgressBarComponent],
     templateUrl: './users-in-app.component.html',
     styleUrl: './users-in-app.component.scss'
 })
 export class UsersInAppComponent {
-  usuariosEnMichi=[
-    {
-      id:1,
-      name: "Prueba",
-      surname: "1",
-      username: "prueba1",
-      email: "prueba1@gmail.com"
-    }
-  ]
+  usuariosEnMichi: User[]=[]
+  loading: Boolean = false;
 
   constructor(
     private _matDialog: MatDialog,
@@ -40,8 +36,8 @@ export class UsersInAppComponent {
     this._matDialog.open(EditDataComponent, {
       width: '900px',
       data: {
-        id: this.usuariosEnMichi[0].id,
-        name: this.usuariosEnMichi[0].name
+        // id: this.usuariosEnMichi[0].id,
+        // name: this.usuariosEnMichi[0].name
       }
     });
   }
@@ -52,8 +48,18 @@ export class UsersInAppComponent {
 
 
   getListUsers(){
-    this._userService.getListUsers().subscribe((data)=>{
-      console.log(data)
+    this.loading = true;
+    this._userService.getListUsers().subscribe((data:User[])=>{
+      console.log("users:", data);
+      this.usuariosEnMichi = data;
+      this.loading = false;
+    })
+  }
+
+  deleteUser(id:number){
+    this.loading = true;
+    this._userService.deleteUser(id).subscribe(() =>{
+      this.getListUsers(); // para volver a cargar la lista y que no se queden los antiguos
     })
   }
 }

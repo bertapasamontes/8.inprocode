@@ -18,11 +18,12 @@ const users_js_1 = __importDefault(require("../../src/app/model/users.js"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     users_js_1.default.find()
         .then((respuesta) => {
-        res.json(respuesta);
+        res.status(200).json(respuesta);
     })
         .catch((error) => {
-        res.json({
-            message: 'Ocurrió un error en la función GetUsers'
+        res.status(500).json({
+            message: 'Ocurrió un error en la función GetUsers',
+            error: error.message
         });
     });
 });

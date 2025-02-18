@@ -7,11 +7,12 @@ import { Request, Response } from 'express';
 export const getUsers = async (req:Request, res:Response)=> {
     UserNuevo.find()
     .then((respuesta: any)=>{
-        res.json(respuesta)
+        res.status(200).json(respuesta)
     })
     .catch((error:any) =>{
-        res.json({
-            message: 'Ocurrió un error en la función GetUsers'
+        res.status(500).json({
+            message: 'Ocurrió un error en la función GetUsers',
+            error: error.message
         })
     })
 }
