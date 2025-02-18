@@ -5,9 +5,10 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <h2>Usuarios registrados en Michi</h2>
-        <button type="button" class="btn btn-primary d-flex align-items-center"><mat-icon>add</mat-icon> Añadir usuario</button>
+        <button type="button" class="btn btn-primary d-flex align-items-center" mat-raised-button (click)="abrirNuevoUser()"><mat-icon>add</mat-icon> Añadir
+            usuario</button>
     </div>
-
+    @if(usuariosEnMichi.length > 0){
     <table class="table">
         <thead>
             <tr>
@@ -41,6 +42,11 @@
             }
         </tbody>
     </table>
+    }
+    @if(usuariosEnMichi.length == 0){
+        <p>No hay users en la base de datos. Añade, anda ;)</p>
+    }
+
 </div>
 
 }

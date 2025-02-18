@@ -1,0 +1,51 @@
+<div class="col-lg-4">
+    <div class="card mb-3">
+        <div class="card-header">Añadir nuevo usuario</div>
+        <div class="card-body">
+            <form class="row g-3">
+
+                <div class="col-md-6">
+                    <label for="name">Name*</label>
+                    <input formControlName="name" type="text" class="form-control" placeholder="Pedro">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="surname">Surname (opcional)</label>
+                    <input formControlName="surname" type="text" class="form-control" placeholder="Pascual">
+                </div>
+
+                <div class="col-12">
+                    <label for="email">Email*</label>
+                    <input formControlName="email" type="email" class="form-control"
+                        placeholder="pedropascual@gmail.com">
+                </div>
+
+
+                <div class="col-md-6">
+                    <label for="username">Username*</label>
+                    <input formControlName="username" type="text" class="form-control" placeholder="@pedropascual"
+                        autocomplete="username">
+                </div>
+                <div class="col-md-6">
+                    <label for="password">Password*</label>
+                    <input formControlName="password" type="password" class="form-control" placeholder="****"
+                        autocomplete="new-password">
+                </div>
+
+
+
+                <div class="col-12">
+                    <div class="row mt-2">
+                        <div class="col-lg-6">
+                            <button routerLink="/" type="button" class="btn btn-secondary d-flex align-items-center"><mat-icon>arrow_back</mat-icon>Volver</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-primary d-flex align-items-center"><mat-icon>add</mat-icon>Crear nuevo user</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

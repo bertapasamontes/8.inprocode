@@ -17,6 +17,7 @@ import { UserService } from '../../services/user/user.service.js';
 import { User } from '../../interfaces/users.js';
 import { ProgressBarComponent } from "../shared/progress-bar/progress-bar.component";
 import { ToastrService } from 'ngx-toastr';
+import { AddUserComponent } from '../add-user/add-user.component.js';
 
 @Component({
     selector: 'app-users-in-app',
@@ -36,6 +37,16 @@ export class UsersInAppComponent {
 
   abrirEdit():void{
     this._matDialog.open(EditDataComponent, {
+      width: '900px',
+      data: {
+        // id: this.usuariosEnMichi[0].id,
+        // name: this.usuariosEnMichi[0].name
+      }
+    });
+  }
+
+  abrirNuevoUser():void{
+    this._matDialog.open(AddUserComponent, {
       width: '900px',
       data: {
         // id: this.usuariosEnMichi[0].id,
