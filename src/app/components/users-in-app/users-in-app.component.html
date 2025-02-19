@@ -32,7 +32,7 @@
                     <button routerLink="/edit/{{item._id}}" type="button"
                         class="btn btn-warning btn-sm d-flex align-items-center mx-2"><mat-icon>edit</mat-icon>
                         Edit</button>
-                    <button mat-raised-button (click)="abrirEdit()" class="mx-2"><mat-icon>edit</mat-icon> Edit con
+                    <button mat-raised-button (click)="abrirEdit(item._id!)" class="mx-2"><mat-icon>edit</mat-icon> Edit con
                         modal</button>
                     <button type="button" (click)="deleteUser(item._id!)"
                         class="btn btn-danger btn-sm d-flex align-items-center mx-2"><mat-icon>delete</mat-icon>

@@ -5,7 +5,7 @@
 @if(!loading){
 <div class="col-lg-4">
     <div class="card mb-3">
-        <div class="card-header">Añadir nuevo usuario</div>
+        <div class="card-header">{{operacion}} usuario</div>
         <div class="card-body">
             <form class="row g-3" [formGroup]='formAddUser' (ngSubmit)="addUser()">
 
@@ -55,13 +55,20 @@
                 <div class="col-12">
                     <div class="row mt-2">
                         <div class="col-lg-6">
-                            <button routerLink="/" type="button"
-                                class="btn btn-secondary d-flex align-items-center"><mat-icon>arrow_back</mat-icon>Volver</button>
+                            <button routerLink="/" type="button" class="btn btn-secondary d-flex align-items-center"
+                                (click)="volver()"><mat-icon>arrow_back</mat-icon>Volver</button>
                         </div>
                         <div class="col-lg-6">
+                            @if(operacion == 'Añadir nuevo'){
                             <button [disabled]="formAddUser.invalid" type="submit"
                                 class="btn btn-primary d-flex align-items-center"><mat-icon>add</mat-icon>Crear nuevo
                                 user</button>
+                            }
+                            @if(operacion == 'Editar'){
+                                <button [disabled]="formAddUser.invalid" type="submit"
+                                class="btn btn-warning d-flex align-items-center"><mat-icon>save</mat-icon>Guardar cambios</button>
+                            }
+
                         </div>
                     </div>
                 </div>

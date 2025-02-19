@@ -35,11 +35,12 @@ export class UsersInAppComponent {
     private toastr: ToastrService
   ){}
 
-  abrirEdit():void{
-    this._matDialog.open(EditDataComponent, {
+  abrirEdit(id:number):void{
+    this._matDialog.open(AddUserComponent, {
       width: '900px',
       data: {
-        // id: this.usuariosEnMichi[0].id,
+        id: id,
+        // info: this.usuariosEnMichi.findIndex()
         // name: this.usuariosEnMichi[0].name
       }
     });
@@ -49,7 +50,7 @@ export class UsersInAppComponent {
     this._matDialog.open(AddUserComponent, {
       width: '900px',
       data: {
-        // id: this.usuariosEnMichi[0].id,
+        // id: this.usuariosEnMichi.id,
         // name: this.usuariosEnMichi[0].name
       }
     });

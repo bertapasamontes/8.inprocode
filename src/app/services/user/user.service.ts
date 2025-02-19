@@ -32,4 +32,12 @@ export class UserService {
   saveUser(user: User): Observable<void>{
     return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, user)
   }
+
+  getUser(id:number): Observable<User>{
+    return this.http.get<User>(`${this.myAppUrl}${this.myApiUrl}${id}`)
+  }
+
+  updateUser(id:number, user: User): Observable<void>{
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, user);
+  }
 }

@@ -5,11 +5,12 @@ import { MapaComponent } from './components/mapa/mapa.component.js';
 import { ChartsComponent } from './components/charts/charts.component.js';
 import { FullCalendarComponent } from './components/full-calendar/full-calendar.component.js';
 import { EditDataComponent } from './components/edit-data/edit-data.component.js';
+import { AddUserComponent } from './components/add-user/add-user.component.js';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: '',   redirectTo: '/home', pathMatch: 'full'},
-    { path: 'edit/:id', component: EditDataComponent},
+    // { path: 'edit/:id', component: AddUserComponent},
     { path: 'mapa', component: MapaComponent},
     { path: 'calendar', component: FullCalendarComponent},
     { path: 'charts', component: ChartsComponent},
