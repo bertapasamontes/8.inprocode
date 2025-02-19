@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon'
-import { RouterLink } from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -21,7 +20,7 @@ import { AddUserComponent } from '../add-user/add-user.component.js';
 
 @Component({
     selector: 'app-users-in-app',
-    imports: [MatIconModule, RouterLink, MatButtonModule, ProgressBarComponent],
+    imports: [MatIconModule, MatButtonModule, ProgressBarComponent],
     templateUrl: './users-in-app.component.html',
     styleUrl: './users-in-app.component.scss'
 })
@@ -33,10 +32,16 @@ export class UsersInAppComponent {
     private _matDialog: MatDialog,
     private _userService: UserService,
     private toastr: ToastrService
-  ){}
+  ){
+    
+  }
+
+  ngOnInit(){
+    this.getListUsers();
+  }
 
   abrirEdit(id:number):void{
-    this._matDialog.open(AddUserComponent, {
+    const dialogo = this._matDialog.open(AddUserComponent, {
       width: '900px',
       data: {
         id: id,
@@ -44,22 +49,37 @@ export class UsersInAppComponent {
         // name: this.usuariosEnMichi[0].name
       }
     });
+
+    dialogo.afterClosed().subscribe((result)=>{
+      console.log('dialogo cerrado');
+      if(result){
+        console.log("va bieeen");
+        this.getListUsers();
+      }else{
+        console.log('somethign is wrong')
+      }
+    })
   }
+  
 
   abrirNuevoUser():void{
-    this._matDialog.open(AddUserComponent, {
+    const dialogo = this._matDialog.open(AddUserComponent, {
       width: '900px',
       data: {
         // id: this.usuariosEnMichi.id,
         // name: this.usuariosEnMichi[0].name
       }
     });
+    dialogo.afterClosed().subscribe(result=>{
+      console.log('dialogo cerrado');
+      if(result){
+        console.log("va bieeen");
+        this.getListUsers();
+      }else{
+        console.log('somethign is wrong')
+      }
+    })
   }
-
-  ngOnInit(){
-    this.getListUsers();
-  }
-
 
   getListUsers(){
     this.loading = true;

@@ -63,27 +63,24 @@ export class AddUserComponent {
         email: this.formAddUser.value.email       
       }
       console.log(usuarioNuevo);
-
+      this.loading = true;
       if(this.data.id !== undefined){
         //editar  
-        this.loading = true;
         usuarioNuevo._id = this.data.id;
         this._userService.updateUser(this.data.id, usuarioNuevo).subscribe(()=>{
-          this.loading = false;
           this.toastr.success(`El usuario ${usuarioNuevo.name} ha sido editado exitosamente`, 'Usuario editado')
         })
 
       } else{
         //añadir nuevo user
-        this.loading =true;
         this._userService.saveUser(usuarioNuevo).subscribe(()=>{
-          this.loading = false;
           this.toastr.success(`${usuarioNuevo.name} añadido exitosamente a la base de datos`, 'Usuario nuevo')
         })
       }
+      this.loading = false;
       this._matDialogRef.close();
 
-
+      this._matDialogRef.close(true);
     }
 
     getUser(id:number){
