@@ -49,6 +49,16 @@ export class PlacesService {
       this.isLoadingPlaces = false;
       this.places=respuesta.features;
 
+      this.places.forEach(sitio => {
+        console.log("sitio:", Object.keys(sitio));
+      });
+      const features = respuesta.features;
+      const sitio = features[0]; // Primer elemento
+console.log("name: ",sitio.properties.name); 
+console.log(JSON.stringify(sitio, null, 2));
+console.log(Object.keys(sitio)); 
+
+
     });
   }
 }

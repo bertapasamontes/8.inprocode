@@ -20,8 +20,10 @@ export class SearchBarComponent {
   onQueryChanged(query: string){ 
     if( this.tiempoDeRebote) clearTimeout(this.tiempoDeRebote);
     this.tiempoDeRebote = setTimeout(()=>{
-      console.log(query);
+      console.log("query", query);
       this._placesService.getPlacesByQuery(query);
+
+      
     }, 1500);
   }
 }

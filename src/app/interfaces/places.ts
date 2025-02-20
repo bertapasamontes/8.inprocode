@@ -11,6 +11,10 @@ export interface Feature {
     id:         string;
     geometry:   Geometry;
     properties: Properties;
+    text: string;
+    place_name: string;
+    center: any;
+
 }
 
 export interface Geometry {

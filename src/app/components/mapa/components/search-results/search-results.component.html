@@ -1,11 +1,17 @@
-<div class="alert alert mt-2">
-    <h6>Cargando...</h6>
-    <span>Un momento, por favor</span>
-</div>
-<ul class="list-group">
-    <li class="list-group list-group-item-action pointer">
-        <h6>Lugar</h6>
-        <p>descripcióooooooooooooooooooooooooooon</p>
-        <button type="button" class="btn btn-sm btn-outline-primary">Direcciones</button>
+@if(isLoadingPlaces){
+    <div class="alert alert mt-2">
+        <h6>Cargando...</h6>
+        <span>Un momento, por favor</span>
+    </div>
+}
+@if (places.length>0) {
+   <ul class="list-group">
+    @for(sitio of places; track sitio.id){
+    <li class="list-group list-group-item-action pointer"  [class.active]="sitio.id===selectedId" (click)="flyTo(sitio)">
+        <h6>{{sitio.text}}</h6>
+        <p>{{sitio.place_name}}</p>
+        <button type="button" class="btn btn-sm" [ngClass]="(sitio.id === selectedId) ? 'btn-primary':'btn-outline-primary' " >Direcciones</button>
     </li>
-</ul>
+    }
+</ul> 
+}
