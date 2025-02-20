@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LngLatLike, Map, Marker, Popup } from 'mapbox-gl';
+import { LngLatBounds, LngLatLike, Map, Marker, Popup } from 'mapbox-gl';
 import { Feature } from '../../../interfaces/places';
 
 @Injectable({
@@ -30,7 +30,7 @@ export class MapService {
     })
   }
 
-  createMarkersFromPlaces(places: Feature[]){
+  createMarkersFromPlaces(places: Feature[], userLocation:[number, number]){
     if(!this.map) console.log('mapa no existe');
     this.marcadores.forEach(marker => marker.remove());
 
@@ -46,8 +46,22 @@ export class MapService {
       const newMarker = new Marker()
           .setLngLat([long,lat])
           .setPopup(popUp)
-          .addTo(this.map)
+          .addTo(this.map);
+      
+      newMarkers.push(newMarker);
     }
+    this.marcadores = newMarkers;
+
+    if(places.length === 0) return; //si no hay sitios no hace falta q se ejecuten las siguientes lineas.
+
+    //hacer que la imagen del mapa recoja a todos los marcadores
+    const bounds = new LngLatBounds();
+    newMarkers.forEach(marker => bounds.extend(marker.getLngLat()));
+    bounds.extend(userLocation);
+
+    this.map.fitBounds(bounds,{
+      padding: 100 //padding para que no se vean marcadores al ras del limite del mapa
+    });
   }
 
 }
