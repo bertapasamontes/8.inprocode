@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
-import { PlacesService } from '../../../../services/places/places-service.service';
+import { PlacesService } from '../../../../services/mapa/places/places-service.service';
 import * as mapbox from 'mapbox-gl';
+
 
 @Component({
   selector: 'app-map-view',
@@ -30,6 +31,19 @@ export class MapViewComponent {
       zoom: 14, // starting zoom
     });
 
-    console.log(map)
+    console.log(map);
+
+    //pop up
+    const popUp = new mapbox.Popup()
+      .setHTML(`
+        <h6>Aqui toy yo</h6>
+        <span>Estoy aquiiii</span>
+      `);
+    
+    //crear nuevo marcador
+    new mapbox.Marker({ color: 'orange'})
+        .setLngLat(this._placesService.userLocation!) //dónde aparece
+        .setPopup(popUp) //colocamos el popUp
+        .addTo(map) //lo añadimos al mapa
   }
 }
