@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { LngLatLike, Map } from 'mapbox-gl';
+import { LngLatLike, Map, Marker, Popup } from 'mapbox-gl';
+import { Feature } from '../../../interfaces/places';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
 
-  private map?: Map;
+  private map!: Map;
+  private marcadores: Marker[]=[];
 
   get isMapReady(){
     return !!this.map; //si tiene algun valor el map, devolverá true, si no, false.
@@ -28,5 +30,24 @@ export class MapService {
     })
   }
 
+  createMarkersFromPlaces(places: Feature[]){
+    if(!this.map) console.log('mapa no existe');
+    this.marcadores.forEach(marker => marker.remove());
+
+    const newMarkers=[];
+
+    for(let sitio of places){
+      const [long, lat] = sitio.center;
+      const popUp = new Popup()
+        .setHTML(`
+          ´<h6>${sitio.text}</h6>
+          <span>${sitio.place_name}</span>
+          `);
+      const newMarker = new Marker()
+          .setLngLat([long,lat])
+          .setPopup(popUp)
+          .addTo(this.map)
+    }
+  }
 
 }

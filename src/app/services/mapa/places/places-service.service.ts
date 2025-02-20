@@ -42,21 +42,19 @@ export class PlacesService {
 
   getPlacesByQuery( query:string){
 
+    if(query.length == 0){
+      this.isLoadingPlaces = false;
+      this.places=[];
+      return
+    }
+
     this.isLoadingPlaces = true;
 
    this.http.get<PlacesResponse>(` https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?country=es&proximity=${this.userLocation?.[0]}%2C${this.userLocation?.[1]}&language=es&access_token=pk.eyJ1IjoiZG9udXRjb25jaG9jbyIsImEiOiJjbTdjM21qbm8wbDY2MmpzZXQ5bW11YTNtIn0.rQ9yW0c4WRaPaXCGs9gRdA`).subscribe( respuesta => {
       console.log(respuesta.features);
       this.isLoadingPlaces = false;
       this.places=respuesta.features;
-
-      this.places.forEach(sitio => {
-        console.log("sitio:", Object.keys(sitio));
-      });
-      const features = respuesta.features;
-      const sitio = features[0]; // Primer elemento
-console.log("name: ",sitio.properties.name); 
-console.log(JSON.stringify(sitio, null, 2));
-console.log(Object.keys(sitio)); 
+    
 
 
     });

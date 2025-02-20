@@ -16,7 +16,7 @@ export class SearchBarComponent {
     private _placesService: PlacesService
   ){}
 
-  //función para mandar los datos buscados en el input una vez que pasa 1,5s
+  //función para mandar los datos buscados en el input una vez que pasa 1s
   onQueryChanged(query: string){ 
     if( this.tiempoDeRebote) clearTimeout(this.tiempoDeRebote);
     this.tiempoDeRebote = setTimeout(()=>{
@@ -24,6 +24,6 @@ export class SearchBarComponent {
       this._placesService.getPlacesByQuery(query);
 
       
-    }, 1500);
+    }, 1000);
   }
 }
