@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import { PlacesService } from '../../../../services/mapa/places/places-service.service';
 import * as mapbox from 'mapbox-gl';
+import { MapService } from '../../../../services/mapa/map/map.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class MapViewComponent {
   @ViewChild('mapDiv') mapDivElement!: ElementRef; //referencia al mapa
 
   constructor(
-    private _placesService: PlacesService
+    private _placesService: PlacesService,
+    private _mapService: MapService
   ){}
 
   // ngOnInit(){
@@ -45,5 +47,12 @@ export class MapViewComponent {
         .setLngLat(this._placesService.userLocation!) //dónde aparece
         .setPopup(popUp) //colocamos el popUp
         .addTo(map) //lo añadimos al mapa
+
+        
+    //inicilizamos mapa, establecemos el servicio y ya tenemos acceso global a él.
+      this._mapService.setMap(map);
+
   }
+
+  
 }
