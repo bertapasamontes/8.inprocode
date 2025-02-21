@@ -5,5 +5,5 @@ export interface placeGlobal {
     direction: string;
     short_direction: string;
     coordinates: number[];
-    category: string;
+    category: string[];
 }

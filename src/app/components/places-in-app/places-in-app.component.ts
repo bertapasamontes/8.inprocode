@@ -3,11 +3,12 @@ import { MapGlobalService } from '../../services/mapa/map-global.service';
 import { ToastrService } from 'ngx-toastr';
 import { placeGlobal } from '../../interfaces/places/placeGlobal';
 import { MatIcon } from '@angular/material/icon';
+import { NgClass } from '@angular/common';
 
 
 @Component({
   selector: 'app-places-in-app',
-  imports: [MatIcon],
+  imports: [MatIcon, NgClass],
   templateUrl: './places-in-app.component.html',
   styleUrl: './places-in-app.component.scss'
 })
@@ -42,5 +43,22 @@ export class PlacesInAppComponent {
         this.getListPlaces(); // para volver a cargar la lista y que no se queden los antiguos
       })
       this.toastr.success('Sitio eliminado correctamente', 'Local eliminado')
+    }
+
+    getClassByCategory(category: string): string {
+      switch (category) {
+        case 'café': return 'tag-cafe';
+        case 'cafetería': return 'tag-cafe';
+        case 'comida y bebida': return 'tag-drink-food'; // Azul para hoteles
+        default: return 'comida'; // Color neutro por defecto
+      }
+    }
+    getIconByCategory(category: string): string {
+      switch (category) {
+        case 'café': case 'cafetería': return 'local_cafe';
+        case 'comida y bebida': case 'comida': case 'restaurant': return 'restaurant';
+        case 'panadería': return 'bakery_dining';
+        default: return 'sell'; // Ícono por defecto
+      }
     }
 }

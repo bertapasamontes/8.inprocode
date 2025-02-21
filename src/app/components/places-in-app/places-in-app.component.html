@@ -2,7 +2,7 @@
 <app-progress-bar></app-progress-bar>
 } -->
 @if(!loading){
-<div class="container">
+<div class="container mt-5">
     <div class="d-flex justify-content-between">
         <h2>Sitios registrados en Michi</h2>
     </div>
@@ -13,7 +13,7 @@
                 <!-- <th scope="col">id</th> -->
                 <th scope="col">Nombre Local</th>
                 <th scope="col">Dirección</th>
-                <th scope="col">Dirección larga</th>
+                <th scope="col">Categoria</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -23,7 +23,12 @@
                 <!-- <th scope="row">{{item._id}}</th> -->
                 <td>{{item.name}}</td>
                 <td>{{item.short_direction}}</td>
-                <td>{{item.direction}}</td>
+                <td>
+                    @for(categoria of item.category; track categoria){
+                        <span class="categoria d-inline-flex" [ngClass]="getClassByCategory(categoria)">
+                            <mat-icon>{{getIconByCategory(categoria)}}</mat-icon>{{categoria}}</span>
+                    }
+                    <!-- {{item.category}}</td> -->
                 <td class="d-inline-flex">
                     <!-- <button routerLink="/edit/{{item._id}}" type="button"
                             class="btn btn-warning btn-sm d-flex align-items-center mx-2"><mat-icon>edit</mat-icon>

@@ -54,7 +54,7 @@ export class SearchResultsComponent {
       direction: sitio.properties?.context?.address?.name ?? "Dirección no disponible",
       short_direction: sitio.properties?.context?.address?.name ?? "Dirección corta no disponible",
       coordinates:sitio.geometry.coordinates,
-      category: "Categoría no especificada",
+      category: sitio.properties.poi_category ??"Categoría no especificada",
     }
 
     console.log('sitio guardado');

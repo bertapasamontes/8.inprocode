@@ -7,7 +7,7 @@ const placesSchema = new Schema({
   direction: { type: String, required: false },
   short_direction: { type: String, required: false },
   coordinates: { type: [Number], required: true, unique: true },
-  category: { type: String, required: true },    
+  category: { type: [String], required: true },    
 });
 export const SitioNuevo = mongoose.model('sitiosDeMichi', placesSchema);
 export default SitioNuevo;
