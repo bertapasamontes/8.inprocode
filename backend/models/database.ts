@@ -6,6 +6,7 @@ import { environment } from "../env";
 
 //importamos la ruta de usuarios
 import routeUsers from '../routes/userRoutes'
+import routePlaces from '../routes/placesRoutes'
 
 class Database{
 
@@ -32,6 +33,7 @@ class Database{
 
     routes(){
         this.app.use('/api/usuario', routeUsers); //cuando mi url sea "localhost:puerto/api/users" y el verbo sea get, ejecutamos el trozo de codigo de getUsers
+        this.app.use('/api/map', routePlaces); //cuando mi url sea "localhost:puerto/api/map" y el verbo sea get, ejecutamos el trozo de codigo de getUsers
     }
 
     midlewares(){

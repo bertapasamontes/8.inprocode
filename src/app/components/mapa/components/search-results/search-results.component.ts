@@ -3,7 +3,7 @@ import { PlacesService } from '../../../../services/mapa/places/places-service.s
 // import { Feature } from '../../../../interfaces/places';
 import { MapService } from '../../../../services/mapa/map/map.service';
 import { NgClass } from '@angular/common';
-import { Feature } from '../../../../interfaces/placesRetrieve';
+import { Feature } from '../../../../interfaces/places/placesRetrieve';
 
 @Component({
   selector: 'app-search-results',

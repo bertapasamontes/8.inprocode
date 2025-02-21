@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LngLatBounds, LngLatLike, Map, Marker, Popup } from 'mapbox-gl';
-import { Feature } from '../../../interfaces/placesRetrieve';
+import { Feature } from '../../../interfaces/places/placesRetrieve';
 // import { Feature } from '../../../interfaces/places';
 
 @Injectable({

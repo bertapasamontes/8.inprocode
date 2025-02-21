@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 // import { Feature, PlacesResponse } from '../../../interfaces/places';
 import { MapService } from '../map/map.service';
 import { environment } from '../../../../../backend/env';
-import { Suggestion, SuggestResponse } from '../../../interfaces/placesSuggestion';
-import { Feature, Features } from '../../../interfaces/placesRetrieve';
+import { Suggestion, SuggestResponse } from '../../../interfaces/places/placesSuggestion';
+import { Feature, Features } from '../../../interfaces/places/placesRetrieve';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable({

@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const env_1 = require("../env");
 //importamos la ruta de usuarios
 const userRoutes_1 = __importDefault(require("../routes/userRoutes"));
+const placesRoutes_1 = __importDefault(require("../routes/placesRoutes"));
 class Database {
     constructor() {
         this.app = (0, express_1.default)();
@@ -25,6 +26,7 @@ class Database {
     }
     routes() {
         this.app.use('/api/usuario', userRoutes_1.default); //cuando mi url sea "localhost:puerto/api/users" y el verbo sea get, ejecutamos el trozo de codigo de getUsers
+        this.app.use('/api/map', placesRoutes_1.default); //cuando mi url sea "localhost:puerto/api/map" y el verbo sea get, ejecutamos el trozo de codigo de getUsers
     }
     midlewares() {
         //parseamos el body
