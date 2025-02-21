@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Feature, PlacesResponse } from '../../../interfaces/places';
 import { MapService } from '../map/map.service';
+import { environment } from '../../../../../backend/env';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +54,7 @@ export class PlacesService {
 
     this.isLoadingPlaces = true;
 
-   this.http.get<PlacesResponse>(` https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?country=es&proximity=${this.userLocation?.[0]}%2C${this.userLocation?.[1]}&language=es&access_token=pk.eyJ1IjoiZG9udXRjb25jaG9jbyIsImEiOiJjbTdjM21qbm8wbDY2MmpzZXQ5bW11YTNtIn0.rQ9yW0c4WRaPaXCGs9gRdA`).subscribe( respuesta => {
+   this.http.get<PlacesResponse>(`${environment.MAPBOX_URL}/${query}.json?country=es&proximity=${this.userLocation?.[0]}%2C${this.userLocation?.[1]}&language=es&access_token=${environment.mapBoxToken}`).subscribe( respuesta => {
       console.log(respuesta.features);
       this.isLoadingPlaces = false;
       this.places=respuesta.features;

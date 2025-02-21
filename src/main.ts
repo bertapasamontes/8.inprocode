@@ -2,10 +2,10 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 
-import { environment } from './env/environment';
 
 //mapa NO TOCAR!!
 import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+import { environment } from '../backend/env';
 mapboxgl.accessToken = environment.mapBoxToken;
 
 bootstrapApplication(AppComponent, appConfig)
