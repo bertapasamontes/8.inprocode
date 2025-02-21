@@ -5,6 +5,11 @@ import { MapService } from '../../../../services/mapa/map/map.service';
 import { NgClass } from '@angular/common';
 import { Feature } from '../../../../interfaces/places/placesRetrieve';
 
+//añadir sitio a mongo
+import { MapGlobalService } from '../../../../services/mapa/map-global.service';
+import { placeGlobal } from '../../../../interfaces/places/placeGlobal';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-search-results',
   imports: [NgClass],
@@ -17,7 +22,10 @@ export class SearchResultsComponent {
 
   constructor(
     private _placesService: PlacesService,
-    private _mapService: MapService
+    private _mapService: MapService,
+    private _mapGlobal: MapGlobalService,
+    private toastr: ToastrService
+    
   ){
    
   } 
@@ -37,5 +45,23 @@ export class SearchResultsComponent {
 
     const [long, lat] = place.geometry.coordinates;
     this._mapService.flyTo([long, lat]);
+  }
+
+  addPlace(sitio:Feature){
+    const nuevoSitio: placeGlobal={
+      name: sitio.properties?.name ?? "Nombre no disponible",
+      mapbox_id: sitio.properties?.mapbox_id ?? "Mapbox_id no disponible",
+      direction: sitio.properties?.context?.address?.name ?? "Dirección no disponible",
+      short_direction: sitio.properties?.context?.address?.name ?? "Dirección corta no disponible",
+      coordinates:sitio.geometry.coordinates,
+      category: "Categoría no especificada",
+    }
+
+    console.log('sitio guardado');
+    console.log(nuevoSitio);
+    //añadir nuevo user
+    this._mapGlobal.savePlace(nuevoSitio).subscribe(()=>{
+      this.toastr.success(`${nuevoSitio.name} añadido exitosamente a la base de datos`, 'Sitio nuevo')
+    })
   }
 }

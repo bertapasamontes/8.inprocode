@@ -14,7 +14,7 @@
         <p>{{sitio.properties.context?.address?.name}}</p>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-sm" [ngClass]="(sitio.properties.mapbox_id === selectedId) ? 'btn-secondary':'btn-outline-secondary' ">Guardar</button>
+                <button type="submit" (click)="addPlace(sitio)" class="btn btn-sm" [ngClass]="(sitio.properties.mapbox_id === selectedId) ? 'btn-secondary':'btn-outline-secondary'" >Guardar</button>
             </div>
             <div class="col">
                 <button type="button" class="btn btn-sm"
