@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Feature, PlacesResponse } from '../../../interfaces/places';
+// import { Feature, PlacesResponse } from '../../../interfaces/places';
 import { MapService } from '../map/map.service';
 import { environment } from '../../../../../backend/env';
+import { Suggestion, SuggestResponse } from '../../../interfaces/placesSuggestion';
+import { Feature, Features } from '../../../interfaces/placesRetrieve';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +47,9 @@ export class PlacesService {
     })
   }
 
-  getPlacesByQuery( query:string){
+  
+  mapbox_id: string = '';
+  async getPlacesByQuery( query:string){
 
     if(query.length == 0){
       this.isLoadingPlaces = false;
@@ -54,15 +59,58 @@ export class PlacesService {
 
     this.isLoadingPlaces = true;
 
-   this.http.get<PlacesResponse>(`${environment.MAPBOX_URL}/${query}.json?country=es&proximity=${this.userLocation?.[0]}%2C${this.userLocation?.[1]}&language=es&access_token=${environment.mapBoxToken}`).subscribe( respuesta => {
-      console.log(respuesta.features);
-      this.isLoadingPlaces = false;
-      this.places=respuesta.features;
-    
-      //añadiendo marcadores cada vez que se hace una petición
-      this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);
+  //  this.http.get<PlacesResponse>(`${environment.MAPBOX_URL}/${query}.json?country=es&proximity=${this.userLocation?.[0]}%2C${this.userLocation?.[1]}&language=es&access_token=${environment.mapBoxToken}`).subscribe( respuesta => {
+  //   console.log(respuesta.features);
+  //   this.isLoadingPlaces = false;
+  //   this.places=respuesta.features;
+  
+  //   //añadiendo marcadores cada vez que se hace una petición
+  //   this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);
 
 
-    });
+  // });
+  try {
+    const places = await this.mapaConnection(query);
+    this.isLoadingPlaces = false;
+
+    this.places = places;
+    this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);
+  } catch (error) {
+    console.error("Error en getPlacesByQuery:", error);
+    this.isLoadingPlaces = false;
   }
+
+  }
+
+  private async mapaConnection(query: string): Promise<Feature[]> {
+    try {
+      const suggestResponse$ = this.http.get<SuggestResponse>(
+        `https://api.mapbox.com/search/searchbox/v1/suggest?q=${query}&language=es&country=es&proximity=${this.userLocation?.[0]}%2C${this.userLocation?.[1]}&session_token=123&access_token=${environment.mapBoxToken}`
+      );
+
+      const suggestResponse = await lastValueFrom(suggestResponse$);
+  
+      if (!suggestResponse?.suggestions?.length) return [];
+  
+      // 🔹 Obtener todos los mapbox_id de las sugerencias
+      const mapboxIds = suggestResponse.suggestions.map(s => s.mapbox_id);
+  
+      // 🔹 Hacer múltiples solicitudes a retrieve usando Promise.all
+      const retrieveResponses = await Promise.all(
+        mapboxIds.map(id =>
+          this.http.get<Features>(
+            `https://api.mapbox.com/search/searchbox/v1/retrieve/${id}?language=es&session_token=123&access_token=${environment.mapBoxToken}`
+          ).toPromise()
+        )
+      );
+  
+      // 🔹 Unir todos los resultados en un solo array
+      return retrieveResponses.flatMap(response => response?.features ?? []);
+      
+    } catch (error) {
+      console.error("Error en mapaConnection:", error);
+      return [];
+    }
+  }
+  
 }

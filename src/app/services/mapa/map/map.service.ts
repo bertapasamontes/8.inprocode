@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LngLatBounds, LngLatLike, Map, Marker, Popup } from 'mapbox-gl';
-import { Feature } from '../../../interfaces/places';
+import { Feature } from '../../../interfaces/placesRetrieve';
+// import { Feature } from '../../../interfaces/places';
 
 @Injectable({
   providedIn: 'root'
@@ -37,11 +38,11 @@ export class MapService {
     const newMarkers=[];
 
     for(let sitio of places){
-      const [long, lat] = sitio.center;
+      const [long, lat] = sitio.geometry.coordinates;
       const popUp = new Popup()
         .setHTML(`
-          ´<h6>${sitio.text}</h6>
-          <span>${sitio.place_name}</span>
+          ´<h6>${sitio.properties.name}</h6>
+          <span>${sitio.properties.context.address.name}</span>
           `);
       const newMarker = new Marker()
           .setLngLat([long,lat])

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { PlacesService } from '../../../../services/mapa/places/places-service.service';
-import { Feature } from '../../../../interfaces/places';
+// import { Feature } from '../../../../interfaces/places';
 import { MapService } from '../../../../services/mapa/map/map.service';
 import { NgClass } from '@angular/common';
+import { Feature } from '../../../../interfaces/placesRetrieve';
 
 @Component({
   selector: 'app-search-results',
@@ -31,10 +32,10 @@ export class SearchResultsComponent {
   }
 
   flyTo(place: Feature){
-    this.selectedId=place.id;
+    this.selectedId=place.properties.mapbox_id;
 
 
-    const [long, lat] = place.center;
+    const [long, lat] = place.geometry.coordinates;
     this._mapService.flyTo([long, lat]);
   }
 }
