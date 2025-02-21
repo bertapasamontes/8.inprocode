@@ -6,12 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
+const env_1 = require("../env");
 //importamos la ruta de usuarios
 const userRoutes_1 = __importDefault(require("../routes/userRoutes"));
 class Database {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = process.env['PORT'] || '3000';
+        this.port = env_1.environment.PORT || '3000';
         this.listen();
         this.midlewares(); //siempre antes de los routes, si no, no funciona. Sin esto, hacer posts de users no funciona
         this.routes();
@@ -33,9 +34,8 @@ class Database {
         this.app.use((0, cors_1.default)());
     }
     dbConnect() {
-        // console.log("🔍 URI de MongoDB:", process.env.MONGODB_URL);
         // Conectar a MongoDB Atlas
-        mongoose_1.default.connect("mongodb+srv://admin:admin@cluster0.ve2kx.mongodb.net/DatabaseMichi?retryWrites=true&w=majority&appName=Cluster0") //para acceder a .env debemos poner antes "process"
+        mongoose_1.default.connect(env_1.environment.MONGODB_URL) //para acceder a .env debemos poner antes "process"
             .then(() => console.log("🟢 Conectado a MongoDB Atlas"))
             .catch(err => console.error("🔴 Error al conectar MongoDB:", err));
     }

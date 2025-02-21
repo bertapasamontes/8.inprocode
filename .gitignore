@@ -43,4 +43,4 @@ Thumbs.db
 
 
 #MongoDB
-backend/.env
+backend/env.ts
