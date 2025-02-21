@@ -13,7 +13,7 @@ import { Feature } from '../../../../interfaces/places/placesRetrieve';
 })
 export class SearchResultsComponent {
 
-  selectedId: string = "";
+  selectedId?: string = "";
 
   constructor(
     private _placesService: PlacesService,

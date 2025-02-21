@@ -23,13 +23,13 @@ export interface Geometry {
 }
 
 export interface Properties {
-    name:               string;
-    mapbox_id:          string;
+    name?:               string;
+    mapbox_id?:          string;
     feature_type:       string;
     address:            string;
     full_address:       string;
     place_formatted:    string;
-    context:            Context;
+    context?:            Context;
     coordinates:        Coordinates;
     language:           string;
     maki:               string;
@@ -44,13 +44,13 @@ export interface Context {
     country:  Country;
     postcode: Place;
     place:    Place;
-    address:  Address;
+    address?:  Address;
     street:   Place;
 }
 
 export interface Address {
     id:             string;
-    name:           string;
+    name?:           string;
     address_number: string;
     street_name:    string;
 }

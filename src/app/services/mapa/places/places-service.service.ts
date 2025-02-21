@@ -49,36 +49,30 @@ export class PlacesService {
 
   
   mapbox_id: string = '';
-  async getPlacesByQuery( query:string){
 
+  async getPlacesByQuery( query:string){
     if(query.length == 0){
       this.isLoadingPlaces = false;
       this.places=[];
       return
     }
-
     this.isLoadingPlaces = true;
 
-  //  this.http.get<PlacesResponse>(`${environment.MAPBOX_URL}/${query}.json?country=es&proximity=${this.userLocation?.[0]}%2C${this.userLocation?.[1]}&language=es&access_token=${environment.mapBoxToken}`).subscribe( respuesta => {
-  //   console.log(respuesta.features);
-  //   this.isLoadingPlaces = false;
-  //   this.places=respuesta.features;
-  
-  //   //añadiendo marcadores cada vez que se hace una petición
-  //   this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);
+    try {
+      const places = await this.mapaConnection(query);
+      this.isLoadingPlaces = false;
 
+      this.places = places;
 
-  // });
-  try {
-    const places = await this.mapaConnection(query);
-    this.isLoadingPlaces = false;
-
-    this.places = places;
-    this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);
-  } catch (error) {
-    console.error("Error en getPlacesByQuery:", error);
-    this.isLoadingPlaces = false;
-  }
+      if (!this.places || this.places.length === 0) {
+        console.warn("No hay lugares disponibles para crear marcadores.");
+        return;
+      }
+      this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);
+    } catch (error) {
+      console.error("Error en getPlacesByQuery:", error);
+      this.isLoadingPlaces = false;
+    }
 
   }
 
@@ -98,9 +92,9 @@ export class PlacesService {
       // 🔹 Hacer múltiples solicitudes a retrieve usando Promise.all
       const retrieveResponses = await Promise.all(
         mapboxIds.map(id =>
-          this.http.get<Features>(
+          lastValueFrom(this.http.get<Features>(
             `https://api.mapbox.com/search/searchbox/v1/retrieve/${id}?language=es&session_token=123&access_token=${environment.mapBoxToken}`
-          ).toPromise()
+          ))
         )
       );
   

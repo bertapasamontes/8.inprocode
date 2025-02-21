@@ -39,10 +39,12 @@ export class MapService {
 
     for(let sitio of places){
       const [long, lat] = sitio.geometry.coordinates;
+      const nombreSitio = sitio.properties?.name ?? "Sin nombre";
+      const direccion = sitio.properties?.context?.address?.name ?? "Dirección desconocida";
       const popUp = new Popup()
         .setHTML(`
-          ´<h6>${sitio.properties.name}</h6>
-          <span>${sitio.properties.context.address.name}</span>
+          ´<h6>${nombreSitio}</h6>
+          <span>${direccion}</span>
           `);
       const newMarker = new Marker()
           .setLngLat([long,lat])

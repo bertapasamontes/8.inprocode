@@ -7,10 +7,11 @@
 @if (places.length>0) {
 <ul class="list-group">
     @for(sitio of places; track sitio.properties.mapbox_id){
-    <li class="list-group list-group-item-action pointer" [class.active]="sitio.properties.mapbox_id===selectedId"
+        @if(sitio.properties.name && sitio.properties.context?.address?.name){
+            <li class="list-group list-group-item-action pointer" [class.active]="sitio.properties.mapbox_id===selectedId"
         (click)="flyTo(sitio)">
         <h6>{{sitio.properties.name}}</h6>
-        <p>{{sitio.properties.context.address.name}}</p>
+        <p>{{sitio.properties.context?.address?.name}}</p>
         <div class="row">
             <div class="col">
                 <button type="button" class="btn btn-sm" [ngClass]="(sitio.properties.mapbox_id === selectedId) ? 'btn-secondary':'btn-outline-secondary' ">Guardar</button>
@@ -23,6 +24,8 @@
         </div>
 
     </li>
+        }
+    
     }
 </ul>
 }
