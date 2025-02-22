@@ -1,1 +1,11 @@
-<p>full-calendar works!</p>
+
+<div class="container">
+    <button (click)="toggleWeekends()">toggle weekends</button>
+    <full-calendar #calendario [options]="calendarOptions">
+    <ng-template #eventContent let-arg>
+        <b>{{arg.timeText}}</b>
+        <i>{{arg.event.title}}</i>
+      </ng-template>
+    
+    </full-calendar>
+</div>
