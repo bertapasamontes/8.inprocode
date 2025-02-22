@@ -1,11 +1,12 @@
 
 <div class="container">
-    <button (click)="toggleWeekends()">toggle weekends</button>
-    <full-calendar #calendario [options]="calendarOptions">
-    <ng-template #eventContent let-arg>
-        <b>{{arg.timeText}}</b>
-        <i>{{arg.event.title}}</i>
-      </ng-template>
+  @if(calendarOptions.weekends){
+    <button (click)="toggleWeekends()" class="btn btn-outline-primary">Ocultar finde</button>
+  }
+  @if (!calendarOptions.weekends) {
+    <button (click)="toggleWeekends()" class="btn btn-outline-primary">Ver finde</button>
+  }
     
+    <full-calendar #calendario [options]="calendarOptions">   
     </full-calendar>
 </div>
