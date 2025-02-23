@@ -7,15 +7,23 @@ import { CalendarOptions, EventInput } from '@fullcalendar/core'; // useful for 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es'
+import { AddEditEventComponent } from './add-edit-event/edit-event.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-full-calendar',
-    imports: [FullCalendarModule, CommonModule],
+    imports: [FullCalendarModule, CommonModule, MatIcon],
     templateUrl: './full-calendar.component.html',
     styleUrl: './full-calendar.component.scss'
 })
 export class FullCalendarComponent {
 
+    constructor(
+        private _matDialog: MatDialog,
+    ){
+
+    }
     @ViewChild('calendario') calendarComponent?: FullCalendarComponent;
 
 
@@ -25,9 +33,55 @@ export class FullCalendarComponent {
         events:[],
         locale: esLocale,
         weekends: true, // findes visibles
+        eventClick: this.abrirEditEvent.bind(this)
     };
     toggleWeekends() {
         this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
+    }
+
+    abrirEditEvent(info:any):void{
+        const dialogo = this._matDialog.open(AddEditEventComponent, {
+            width: '900px',
+            data: {
+            id: info.id,
+            // info: this.usuariosEnMichi.findIndex()
+            // name: this.usuariosEnMichi[0].name
+            }
+        });
+
+        dialogo.afterClosed().subscribe((result)=>{
+            console.log('dialogo cerrado');
+            if(result){
+            console.log("va bieeen");
+            // this.getListUsers();
+            }else{
+            console.log('somethign is wrong')
+            }
+        })
+    }
+    abrirAddEvent():void{
+        const dialogo = this._matDialog.open(AddEditEventComponent, {
+            width: '900px',
+            data: {
+            // id: info.id,
+            // info: this.usuariosEnMichi.findIndex()
+            // name: this.usuariosEnMichi[0].name
+            }
+        });
+
+        dialogo.afterClosed().subscribe((result)=>{
+            console.log('dialogo cerrado');
+            if(result){
+            console.log("va bieeen");
+            // this.getListUsers();
+            }else{
+            console.log('somethign is wrong')
+            }
+        })
+    }
+
+    addEvent(){
+        this.abrirAddEvent();
     }
 
     ngOnInit() {
