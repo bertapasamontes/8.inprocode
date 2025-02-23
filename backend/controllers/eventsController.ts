@@ -47,10 +47,13 @@ export const postEvent = (req:Request, res: Response)=>{
 
 export const updateEvent = (req:Request, res: Response)=>{
     const {id} = req.params;
-    const {name, direction, short_direction, coordinates, category} = req.body;
+    const {title, description, start, end} = req.body;
     EventoNuevo
-        .updateOne({_id: id}, { $set: {name, direction, short_direction, coordinates, category}}) // con $set mongoDB actualiza el objeto de ese ID con el los datos del objeto que se le pasa (email, surname..).
-        .then((data)=> res.json(data))
+        .updateOne({_id: id}, { $set: {title, description, start, end}}) // con $set mongoDB actualiza el objeto de ese ID con el los datos del objeto que se le pasa (email, surname..).
+        .then((data)=> {
+            res.json(data);
+            console.log("datos desde events controler: ", data)}
+        )
         .catch((error)=> res.json({
             mensaje: error  
         }))

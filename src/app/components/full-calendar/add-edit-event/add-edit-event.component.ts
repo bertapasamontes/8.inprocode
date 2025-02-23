@@ -95,7 +95,7 @@ export class AddEditEventComponent {
       console.log('obteniendo datos del evento');
         console.log(data);
         // this.loading=false;
-        this.formEditEvent.setValue({
+        this.formEditEvent.patchValue({
           title: data.title,
           description: data.description,
           start: data.start,

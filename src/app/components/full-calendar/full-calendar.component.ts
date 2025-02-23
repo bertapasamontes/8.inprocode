@@ -70,7 +70,7 @@ export class FullCalendarComponent {
             console.log('dialogo cerrado');
             if(result){
             console.log("va bieeen");
-            // this.getListUsers();
+            this.getListEvents();
             }else{
             console.log('somethign is wrong')
             }
@@ -88,7 +88,7 @@ export class FullCalendarComponent {
     
             //damos el formato de Event.ts
             const eventosFullCalendar: Event[] = data.map(evento => ({
-                id: evento._id?.toString(), 
+                id:  evento._id ? evento._id?.toString() : '', 
                 title: evento.title,
                 start: evento.start,
                 end: evento.end,  
