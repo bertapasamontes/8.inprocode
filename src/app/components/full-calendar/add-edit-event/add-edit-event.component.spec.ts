@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddEditEventComponent } from './edit-event.component';
+import { AddEditEventComponent } from './add-edit-event.component';
 
 
 

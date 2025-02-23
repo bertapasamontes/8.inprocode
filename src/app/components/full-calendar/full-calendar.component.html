@@ -7,7 +7,7 @@
     @if (!calendarOptions.weekends) {
     <button (click)="toggleWeekends()" class="btn btn-outline-primary">Ver finde</button>
     }
-    <button type="button" class="btn btn-primary d-flex" (click)="addEvent()"><mat-icon>add</mat-icon> Añadir evento</button>
+    <button type="button" class="btn btn-primary d-flex" (click)="abrirAddEvent()"><mat-icon>add</mat-icon> Añadir evento</button>
   </div>
   <full-calendar #calendario [options]="calendarOptions">
   </full-calendar>

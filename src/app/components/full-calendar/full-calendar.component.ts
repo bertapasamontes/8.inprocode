@@ -7,9 +7,11 @@ import { CalendarOptions, EventInput } from '@fullcalendar/core'; // useful for 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es'
-import { AddEditEventComponent } from './add-edit-event/edit-event.component';
+import { AddEditEventComponent } from './add-edit-event/add-edit-event.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
+import { CalendarService } from '../../services/calendar/calendar.service';
+import { Event } from '../../interfaces/event';
 
 @Component({
     selector: 'app-full-calendar',
@@ -21,6 +23,7 @@ export class FullCalendarComponent {
 
     constructor(
         private _matDialog: MatDialog,
+        private _calendarService: CalendarService
     ){
 
     }
@@ -43,17 +46,15 @@ export class FullCalendarComponent {
         const dialogo = this._matDialog.open(AddEditEventComponent, {
             width: '900px',
             data: {
-            id: info.id,
-            // info: this.usuariosEnMichi.findIndex()
-            // name: this.usuariosEnMichi[0].name
+            id: info.event._def.publicId,
             }
         });
 
         dialogo.afterClosed().subscribe((result)=>{
-            console.log('dialogo cerrado');
+            console.log('dialogo Edit event cerrado');
             if(result){
             console.log("va bieeen");
-            // this.getListUsers();
+            this.getListEvents();
             }else{
             console.log('somethign is wrong')
             }
@@ -62,11 +63,7 @@ export class FullCalendarComponent {
     abrirAddEvent():void{
         const dialogo = this._matDialog.open(AddEditEventComponent, {
             width: '900px',
-            data: {
-            // id: info.id,
-            // info: this.usuariosEnMichi.findIndex()
-            // name: this.usuariosEnMichi[0].name
-            }
+            data:{}
         });
 
         dialogo.afterClosed().subscribe((result)=>{
@@ -80,34 +77,30 @@ export class FullCalendarComponent {
         })
     }
 
-    addEvent(){
-        this.abrirAddEvent();
-    }
-
     ngOnInit() {
-        this.calendarOptions.events=[
-            {
-                 id: '1', 
-                 title: 'Evento 1', 
-                 date: new Date(),
-                 description: "Evento 1"
-            },
-            { 
-                id: '2', 
-                 title: 'Evento 2', 
-                 date: new Date(new Date().getTime()+86400000), //coge la fecha de hoy y sumale un dia
-                 description: "Evento 2"
-            },
-            { 
-                id: '2', 
-                 title: 'Evento 3', 
-                 start: new Date(new Date().getTime()+86400000), //coge la fecha de hoy y sumale un dia
-                 end: new Date(new Date().getTime()+86400000*2),
-                 description: "Evento 2"
-            }
-        ]
         console.log("eventos impresos");
+        this.getListEvents();
     }
 
+    getListEvents(){
+        this._calendarService.getListEvents().subscribe((data: Event[]) => {
+            console.log("Eventos recibidos:", data);
+    
+            //damos el formato de Event.ts
+            const eventosFullCalendar: Event[] = data.map(evento => ({
+                id: evento._id?.toString(), 
+                title: evento.title,
+                start: evento.start,
+                end: evento.end,  
+                description: evento.description
+            }));
+    
+            //asignamos los valores a los eventos del calendario
+            this.calendarOptions = {
+                ...this.calendarOptions,
+                events: eventosFullCalendar
+            };
+        });
+    }
 
 }
