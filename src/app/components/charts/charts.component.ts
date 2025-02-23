@@ -7,6 +7,7 @@ import { CalendarService } from '../../services/calendar/calendar.service';
 import { MapService } from '../../services/mapa/map/map.service';
 import { MapGlobalService } from '../../services/mapa/map-global.service';
 import { getuid } from 'process';
+import SitioNuevo from '../../model/places';
 
 
 @Component({
@@ -17,6 +18,8 @@ import { getuid } from 'process';
 })
 export class ChartsComponent {
     @ViewChild('chartCanvas') chartCanvas!: ElementRef;
+    @ViewChild('chartCanvas2') chartCanvas2!: ElementRef;
+
     constructor(
         private _userService: UserService,
         private _mapService: MapGlobalService,
@@ -61,7 +64,37 @@ export class ChartsComponent {
             });
         }
     }
-    
+
+    crearChartColumnas(){
+        const canvas = this.chartCanvas2.nativeElement.getContext('2d');
+
+        if (canvas) { 
+            new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(this.sitiosPorCategoria),
+                    datasets: [
+                    {
+                        label: 'Cantidad de sitios con estas etiquetas',
+                        data: Object.values(this.cantidadPorCategoria),
+                        backgroundColor: [
+                           'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                        ],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                    },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                },
+            });
+        }
+    }
+    sitiosPorCategoria: any = {};
+    cantidadPorCategoria: any = {};
     loadData() {
         let usersLoaded = false;
         let placesLoaded = false;
@@ -74,10 +107,27 @@ export class ChartsComponent {
             this.tryCreateChart(usersLoaded, placesLoaded, eventsLoaded);
         });
 
-        this._mapService.getListPlaces().subscribe((data: string | any[])=>{
+        this._mapService.getListPlaces().subscribe((data: any[])=>{
             this.numRestaurantes = data.length;
             placesLoaded = true;
             this.tryCreateChart(usersLoaded, placesLoaded, eventsLoaded);
+            let contador = 0;
+        
+            //chart2
+            data.forEach((sitio)=>{
+                sitio.category.forEach((categoria: string) => {
+                    if(!this.sitiosPorCategoria[categoria]){
+                    this.sitiosPorCategoria[categoria] = [];
+                    }
+                    this.sitiosPorCategoria[categoria].push(sitio);
+
+                    if(!this.cantidadPorCategoria[categoria]){
+                        this.cantidadPorCategoria[categoria] = 0;
+                    }
+                    this.cantidadPorCategoria[categoria]++;
+                     
+                });
+            });
         });
 
         this._calendarService.getListEvents().subscribe((data: any[]) => {
@@ -91,6 +141,7 @@ export class ChartsComponent {
     tryCreateChart(usersLoaded: boolean, placesLoaded: boolean, eventsLoaded: boolean) {
         if (usersLoaded && placesLoaded && eventsLoaded) {
             this.crearChartCircular();
+            this.crearChartColumnas();
         }
     }
 }
