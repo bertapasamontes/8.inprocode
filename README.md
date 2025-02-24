@@ -21,7 +21,17 @@ Este proyecto es una aplicación Angular generada con Angular CLI. Está diseña
 - Node.js y npm instalados.
 - Angular CLI instalado globalmente.
 
-## Configuración del entorno 🌍
+## 🛠️ Instalación
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/bertapasamontes/8.inprocode.git
+
+2. Instala las dependencias:
+```bash
+npm install
+```
+
+3. Configuración del entorno 🌍
 Antes de ejecutar el proyecto, crea el archivo `backend/env.ts` y copia el contenido de `environment.example.ts`, luego agrega tus valores reales.
 
 Ejemplo:
@@ -32,15 +42,6 @@ export const environment = {
     MAPBOX_URL: "https://api.mapbox.com/geocoding/v5/mapbox.places",
     mapBoxToken: "tu_token_de_mapbox"
 };
-
-## 🛠️ Instalación
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/bertapasamontes/8.inprocode.git
-
-2. Instala las dependencias:
-```bash
-npm install
 ```
 
 3. Inicializa el proyecto:
