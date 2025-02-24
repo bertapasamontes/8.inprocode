@@ -28,6 +28,7 @@ Este proyecto es una aplicación Angular generada con Angular CLI. Está diseña
 
 2. Instala las dependencias:
 ```bash
+cd .\8.improcode\
 npm install
 ```
 
