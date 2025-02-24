@@ -59,7 +59,7 @@ export class SearchResultsComponent {
 
     console.log('sitio guardado');
     console.log(nuevoSitio);
-    //añadir nuevo user
+    //añadir nuevo sitio
     this._mapGlobal.savePlace(nuevoSitio).subscribe(()=>{
       this.toastr.success(`${nuevoSitio.name} añadido exitosamente a la base de datos`, 'Sitio nuevo')
     })

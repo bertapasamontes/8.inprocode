@@ -111,7 +111,6 @@ export class ChartsComponent {
             this.numRestaurantes = data.length;
             placesLoaded = true;
             this.tryCreateChart(usersLoaded, placesLoaded, eventsLoaded);
-            let contador = 0;
         
             //chart2
             data.forEach((sitio)=>{

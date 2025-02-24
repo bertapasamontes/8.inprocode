@@ -1,3 +1,10 @@
+@for (categoria of categorias; track categoria){
+<div class="filtro">
+    <label><input type="checkbox" (change)="toggleCategoria(categoria)" />
+        {{ categoria }}
+    </label>
+</div>
+}
+
 <div #mapDiv class="map-container">
-    hola
 </div>
