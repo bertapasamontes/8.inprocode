@@ -10,7 +10,6 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { EditDataComponent } from '../edit-data/edit-data.component';
 import { UserService } from '../../services/user/user.service.js';
 
 import { User } from '../../interfaces/users.js';

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditDataComponent } from './edit-data.component';
+import { FiltroMapaComponent } from './filtro-mapa.component';
 
-describe('EditDataComponent', () => {
-  let component: EditDataComponent;
-  let fixture: ComponentFixture<EditDataComponent>;
+describe('FiltroMapaComponent', () => {
+  let component: FiltroMapaComponent;
+  let fixture: ComponentFixture<FiltroMapaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditDataComponent]
+      imports: [FiltroMapaComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(EditDataComponent);
+
+    fixture = TestBed.createComponent(FiltroMapaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -23,7 +23,6 @@ export class SearchBarComponent {
       console.log("query", query);
       this._placesService.getPlacesByQuery(query);
 
-      
     }, 1000);
   }
 }

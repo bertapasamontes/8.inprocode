@@ -5,6 +5,7 @@ import { ProgressBarComponent } from "../shared/progress-bar/progress-bar.compon
 import { BtnMyLocationComponent } from "./components/btn-my-location/btn-my-location.component";
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
 
+
 @Component({
     selector: 'app-mapa',
     imports: [MapViewComponent, ProgressBarComponent, BtnMyLocationComponent, SearchBarComponent],
