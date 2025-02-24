@@ -34,12 +34,14 @@ npm install
 3. Inicializa el proyecto:
 1r terminal:
 ```powershell
-cd .\backend\dist\backend\models\ tsc --watch
+cd .\backend\dist\backend\models\
+tsc --watch
 ```
 
 2o terminal:
 ```powershell
-cd .\backend\dist\backend\dist\backend\ nodemon index.js
+cd .\backend\dist\backend\
+nodemon index.js
 ```
 
 3r terminal:
