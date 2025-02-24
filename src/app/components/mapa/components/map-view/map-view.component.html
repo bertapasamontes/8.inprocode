@@ -1,10 +1,6 @@
-@for (categoria of categorias; track categoria){
-<div class="filtro">
-    <label><input type="checkbox" [checked]="categoriasSeleccionadas.includes(categoria)" (change)="toggleCategoria(categoria)" />
-        {{ categoria }}
-    </label>
-</div>
-}
-
+<app-filtro-mapa [categorias]="categorias"
+        [categoriasSeleccionadas]="categoriasSeleccionadas"
+        (categoriasCambiadas)="actualizarFiltro($event)" class="fitro-categorias">
+    </app-filtro-mapa>
 <div #mapDiv class="map-container">
 </div>

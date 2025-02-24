@@ -3,11 +3,12 @@ import { PlacesService } from '../../../../services/mapa/places/places-service.s
 import * as mapbox from 'mapbox-gl';
 import { MapService } from '../../../../services/mapa/map/map.service';
 import { MapGlobalService } from '../../../../services/mapa/map-global.service';
+import { FiltroMapaComponent } from "../filtro-mapa/filtro-mapa.component";
 
 
 @Component({
   selector: 'app-map-view',
-  imports: [],
+  imports: [FiltroMapaComponent],
   templateUrl: './map-view.component.html',
   styleUrl: './map-view.component.scss'
 })
@@ -95,7 +96,7 @@ export class MapViewComponent {
         .setHTML(`
           <h6>${sitio.name}</h6>
           <span>${sitio.direction  || 'Sin dirección'}</span>
-          <span><b>${sitio.category  || 'Sin categoria'}</b></span>
+          <span>${sitio.category  || 'Sin categoria'}</span>
         `)
       ) //colocamos el popUp
       .addTo(this.map) //lo añadimos al mapa
@@ -122,12 +123,17 @@ export class MapViewComponent {
     });
   }
 
-  toggleCategoria(categoria: string) {
-    if (this.categoriasSeleccionadas.includes(categoria)) {
-      this.categoriasSeleccionadas = this.categoriasSeleccionadas.filter(cat => cat !== categoria);
-    } else {
-      this.categoriasSeleccionadas.push(categoria);
-    }
-    this.filtrarSitios(); // aplicamos filtro
-  }  
+  // toggleCategoria(categoria: string) {
+  //   if (this.categoriasSeleccionadas.includes(categoria)) {
+  //     this.categoriasSeleccionadas = this.categoriasSeleccionadas.filter(cat => cat !== categoria);
+  //   } else {
+  //     this.categoriasSeleccionadas.push(categoria);
+  //   }
+  //   this.filtrarSitios(); // aplicamos filtro
+  // }  
+
+  actualizarFiltro(nuevasCategorias: string[]) {
+    this.categoriasSeleccionadas = nuevasCategorias;
+    this.filtrarSitios();
+  }
 }

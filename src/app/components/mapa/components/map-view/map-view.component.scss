@@ -2,16 +2,10 @@
     width: 90%;
     height: 75vh; //NO borres la altura
     // margin: 20px;
-    position: absolute;
+    position: relative;
 
-    top: 60%;
-
+    top: 40%;
     left: 50%;
-
     transform: translate(-50%, -50%);
+    border-radius: 20px;
 }
-
-.filtro{
-    z-index: 100;
-}
-  
