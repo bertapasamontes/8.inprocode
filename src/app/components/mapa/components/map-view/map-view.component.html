@@ -1,6 +1,6 @@
 @for (categoria of categorias; track categoria){
 <div class="filtro">
-    <label><input type="checkbox" (change)="toggleCategoria(categoria)" />
+    <label><input type="checkbox" [checked]="categoriasSeleccionadas.includes(categoria)" (change)="toggleCategoria(categoria)" />
         {{ categoria }}
     </label>
 </div>

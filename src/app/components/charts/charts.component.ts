@@ -75,7 +75,7 @@ export class ChartsComponent {
                     labels: Object.keys(this.sitiosPorCategoria),
                     datasets: [
                     {
-                        label: 'Cantidad de sitios con estas etiquetas',
+                        label: 'Cantidad de locales guardados con estas etiquetas',
                         data: Object.values(this.cantidadPorCategoria),
                         backgroundColor: [
                            'rgba(255, 99, 132, 0.2)',

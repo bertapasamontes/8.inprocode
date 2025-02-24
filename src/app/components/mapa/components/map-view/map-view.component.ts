@@ -75,52 +75,49 @@ export class MapViewComponent {
         }
       });
     });
-    this.crearMarcadorPorSitio();
+    this.categorias = Object.keys(this.sitiosPorCategoria)
+    this.categoriasSeleccionadas = [...this.categorias];
+
+    this.filtrarSitios();
+    // this.crearMarcadorPorSitio();
   });
   }
 
-  crearMarcadorPorSitio(){
-    Object.values(this.sitiosPorCategoria).forEach((sitios: any)=>{
-      sitios.forEach((sitio: any) => {
-        new mapbox.Marker(
-          { 
-            color: 'blue',
+  crearMarcadorPorSitio(sitio:any){
+    return new mapbox.Marker(
+      { 
+        color: 'red',
 
-          })
-          .setLngLat(sitio.coordinates) //dónde aparece
-          .setPopup(
-            new mapbox.Popup()
-            .setHTML(`
-              <h6>${sitio.name}</h6>
-              <span>${sitio.direction}</span>
-            `)
-          ) //colocamos el popUp
-          .addTo(this.map) //lo añadimos al mapa
-      });
-    })
+      })
+      .setLngLat(sitio.coordinates) //dónde aparece
+      .setPopup(
+        new mapbox.Popup()
+        .setHTML(`
+          <h6>${sitio.name}</h6>
+          <span>${sitio.direction  || 'Sin dirección'}</span>
+          <span><b>${sitio.category  || 'Sin categoria'}</b></span>
+        `)
+      ) //colocamos el popUp
+      .addTo(this.map) //lo añadimos al mapa
   }
 
 
   filtrarSitios() {
-    this.markers.forEach(marker => marker.remove()); // 📌 Eliminamos los marcadores anteriores
-    this.markers = []; // Reiniciamos el array de marcadores
+    this.markers.forEach(marker => marker.remove()); // eliminamos los marcadores anteriores
+    this.markers = []; // reiniciamos el array de marcadores a 0
 
     Object.entries(this.sitiosPorCategoria).forEach(([categoria, sitios]) => {
       const sitiosArray = sitios as any[];
-      if (this.categoriasSeleccionadas.length === 0 || this.categoriasSeleccionadas.includes(categoria)) {
+      if (this.categoriasSeleccionadas.includes(categoria)) {// si hay alguna, se muestran las seleccionadas
         sitiosArray.forEach((sitio) => {
-          const marker = new mapbox.Marker({ color: 'blue' })
-            .setLngLat([sitio.coordinates.lng, sitio.coordinates.lat])
-            .setPopup(
-              new mapbox.Popup().setHTML(`
-                <h6>${sitio.name}</h6>
-                <span>${sitio.direction || 'Sin dirección'}</span>
-              `)
-            )
-            .addTo(this.map);
 
-          this.markers.push(marker); // 📌 Guardamos el marcador para poder eliminarlo después
+          const marker = this.crearMarcadorPorSitio(sitio);
+
+          this.markers.push(marker); // guardamos marcador para poder eliminarlo luego
         });
+      }
+      if(this.categoriasSeleccionadas.length === 0){
+        return
       }
     });
   }
@@ -131,6 +128,6 @@ export class MapViewComponent {
     } else {
       this.categoriasSeleccionadas.push(categoria);
     }
-    this.filtrarSitios(); // 📌 Aplicamos el filtro cada vez que el usuario cambia una opción
+    this.filtrarSitios(); // aplicamos filtro
   }  
 }
