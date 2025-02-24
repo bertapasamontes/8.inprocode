@@ -1,3 +1,11 @@
-.nav-link:hover{
-    color: rgb(195, 135, 25) !important;
+.navbar{
+    background-color: #e0cafc;
+    padding: 20px;
+    height: 100vh;
+}
+.nav-item :hover{
+    background-color: #c2a8e4;
+    color: #906fbb;
+    padding: 10px 5px;
+    border-radius: 20px;
 }
