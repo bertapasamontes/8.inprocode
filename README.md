@@ -38,7 +38,7 @@ Antes de ejecutar el proyecto, crea el archivo `backend/env.ts` y copia el conte
 Ejemplo:
 ```typescript
 export const environment = {
-    MONGODB_URL: "mongodb+srv://user:user123@cluster.mongodb.net/DatabaseMichi?retryWrites=true&w=majority&appName=Cluster0",
+    MONGODB_URL: "mongodb+srv://user:user123@cluster0.ve2kx.mongodb.net/DatabaseMichi?retryWrites=true&w=majority&appName=Cluster0",
     PORT: "3000",
     MAPBOX_URL: "https://api.mapbox.com/geocoding/v5/mapbox.places",
     mapBoxToken: "tu_token_de_mapbox"
