@@ -1,15 +1,7 @@
 # 8Inprocode
 ![image](https://github.com/user-attachments/assets/ea954aa4-1e80-41b8-8cd5-17cc733ad8b8)
-
-<div class="row">
-  <div class="col"></div>
-  <div class="col">
-    <div class="row">![image](https://github.com/user-attachments/assets/fdab7d96-f593-444c-bace-4332e3706c92)
-</div>
-    <div class="row">![image](https://github.com/user-attachments/assets/7cfd178a-6854-4418-b6c4-9c0aecb145ad)
-</div>
-  </div>
-
+![image](https://github.com/user-attachments/assets/fdab7d96-f593-444c-bace-4332e3706c92)
+![image](https://github.com/user-attachments/assets/7cfd178a-6854-4418-b6c4-9c0aecb145ad)
 
 ## 📄 Descripción
 Este proyecto es una aplicación Angular generada con Angular CLI. Está diseñada para facilitar el desarrollo de aplicaciones web, proporcionando una estructura modular y escalable.
